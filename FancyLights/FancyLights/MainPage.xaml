@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:FancyLights"
+             xmlns:cvt="clr-namespace:FancyLights.Converters"
+             x:Class="FancyLights.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cvt:BoolInvertConverter x:Key="boolConverter"></cvt:BoolInvertConverter>
+            <cvt:LightTriggerToBoolConverter x:Key="lightTriggerConverter"></cvt:LightTriggerToBoolConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackLayout>
+            <Button Text="Connect" TextColor="White" BackgroundColor="{StaticResource Primary}"  Command="{Binding ConnectCommand}" IsVisible="{Binding IsConnected, Converter={StaticResource boolConverter}}" ></Button>
+            <Button Text="Disconnect" TextColor="White" BackgroundColor="{StaticResource PrimaryDark}" Command="{Binding DisconnectCommand}" IsVisible="{Binding IsConnected}"></Button>
+            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsConnected}">
+                <Label Text="Auto" HorizontalOptions="StartAndExpand">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"  Binding="{Binding Source={x:Reference swLightOnTrigger}, Path=IsToggled}" Value="True">
+                            <Setter Property="Text" Value="Always On"></Setter>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Switch x:Name="swLightOnTrigger" IsToggled="{Binding LightOnTrigger,Converter={StaticResource lightTriggerConverter}}" HorizontalOptions="EndAndExpand"></Switch>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout Grid.Row="1" BackgroundColor="{Binding StairColor,Mode=TwoWay}" IsVisible="{Binding IsConnected}">
+                <Label Text="{Binding RedColor, Mode=TwoWay, StringFormat='Red = {0}'}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+                <Label Text="{Binding GreenColor, Mode=TwoWay, StringFormat='Green = {0}'}"   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+                <Label Text="{Binding BlueColor, Mode=TwoWay, StringFormat='Blue = {0}'}"   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+        </StackLayout>
+
+        <StackLayout Grid.Row="2" IsVisible="{Binding IsConnected}" Spacing="20">
+            <Slider Minimum="0" Maximum="255" Value="{Binding RedColor, Mode=TwoWay}" Margin="0,20,0,0" />
+            <Slider Minimum="0" Maximum="255" Value="{Binding GreenColor, Mode=TwoWay}"/>
+            <Slider Minimum="0" Maximum="255" Value="{Binding BlueColor, Mode=TwoWay}"/>
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

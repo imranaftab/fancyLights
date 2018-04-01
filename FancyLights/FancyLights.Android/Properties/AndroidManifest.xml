@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="2" android:versionName="2.0" package="com.companyname.FancyLights" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="15" />
+	<uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
+	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<application android:label="RGB PIR" android:icon="@drawable/icon"></application>
+</manifest>
