@@ -37,7 +37,7 @@ install:
 - appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 
 before_build:
-- cmd: appveyor-retry nuget restore TestApp.sln -verbosity detailed -DisableParallelProcessing
+- cmd: appveyor-retry nuget restore FancyLights.sln -verbosity detailed -DisableParallelProcessing
 
 # MSBuild
 build:
